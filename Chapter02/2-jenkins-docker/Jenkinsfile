@@ -28,6 +28,7 @@ pipeline {
                             sh """ 
                                 az acr login -n jktest
                                 ./gradlew jib -Djib.to.image=jktest.azurecr.io/test:1.0 -Djib.console='plain'
+                            """
                         }
             }
         }
