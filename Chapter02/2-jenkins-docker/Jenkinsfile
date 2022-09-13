@@ -27,7 +27,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'azure_acr_rredential', passwordVariable: 'password', usernameVariable: 'username')]) {
                             sh """
                                 cd ${mainDir}
-                                az acr login -n jktest.azurecr.io -u $(username) -p $(password) 
+                                az acr login -n jktest -u $(username) -p $(password) 
                                 ./gradlew jib -Djib.to.image=jktest.azurecr.io/test:1.0 -Djib.console='plain'
                             """
                         }
