@@ -22,13 +22,7 @@ pipeline {
                 """
             }
         }
-        stage('Build Docker Image by Jib & Push to AWS ECR Repository') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'azure_acr_rredential', passwordVariable: 'AZURE_CLIENT_SECRET', usernameVariable: 'AZURE_CLIENT_ID')]) {
-                            sh './gradlew jib -Djib.to.image=jktest.azurecr.io -Djib.console='plain''
-                        }
-            }
-        }
+        
         stage('Deploy to AWS EC2 VM'){
             steps{
                 sshagent(credentials : ["deploy-key"]) {
