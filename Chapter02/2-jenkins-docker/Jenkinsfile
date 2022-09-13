@@ -25,11 +25,9 @@ pipeline {
         stage('Build Docker Image by Jib & Push to AWS ECR Repository') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'azure_acr_rredential', passwordVariable: 'password', usernameVariable: 'username')]) {
-                            sh """
-                                cd ${mainDir}
-                                docker login -u ${username} -p ${password} jktest.azurecr.io
-                                ./gradlew jib -Djib.to.image=jktest.azurecr.io -Djib.console='plain'
-                            """
+                            sh 'cd ${mainDir}'
+                            sh  'docker login -u ${username} -p ${password} jktest.azurecr.io'
+                            sh  './gradlew jib -Djib.to.image=jktest.azurecr.io -Djib.console='plain''                            
                         }
             }
         }
